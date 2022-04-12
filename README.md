@@ -13,18 +13,24 @@ This flow was really frustrating and about 5 sites I decided to automate the pro
 # Reverse engineering the booking application (Notes from after building the script. Verify and update)
 The Engish language goverment site [Schedule an appointment to issue biometric documents](https://www.gov.il/en/Departments/news/schedule_appointment_for_biometric_docs) links to the web application to book an appointment [web application](https://myvisit.com/#!/home/signin/). 
 
-The logging into the web application requires the creation of an account with phone number and a Capcha. A text message with a one-time password is sent, and you need to enter the one-time code 
+* The logging into the web application requires the creation of an account with phone number and a Capcha. A text message with a one-time password is sent, and you need to enter the one-time code 
+
+* Note- there is an option to use the login procedure where you don't perform 2FA, and you don't have the ability to change bookings.
 
 A provider is selected and a location is selected. The service is selected. Enter ID Number. Enter Phone Number. Choose the service Darcon Biometri / biometric passport.
 
 You then receive a list of Available Dates that show the Available times when you click on them.
 
 # Initial Automation Solution
-In the browser manually perform the first login and find your way the Available Date picker for one location.
+In the browser manually perform the first login and find your way the Available Date picker for one location. This should set up some browser authentication
 
 (Google Chrome) Right click and press 'inspect' which should bring up the source and a few other options. Reload a date while observing the network traffic. Copy out the authorization from the "request headers" and save it in a text editor. 
+To retrive the authentication token required for using the script to pull bookings, right click on the browser window and select "inspect". From here find the button that opens a Javascript console. 
+Type this into the console `sessionStorage['user.session-token']` and you should get a long string (634 in my case).
+Copy this string and save it for later.
 
-Open up the [juypter notebook](http://todo) and paste in the token 'JWT lots_of_characters', your phone number and teudat zehut and run all the cells.
+
+Open up the [juypter notebook PassportAppointmentsFinder.ipynb](https://github.com/frankbolton/IsraelPassportBooking/blob/main/PassportAppointmentsFinder.ipynb) and paste in the token  `paste_token="replace with token"`, your phone number and teudat zehut and run all the cells.
 Optionally, update your home coordinates to sort by nearest office first. 
 A table will print the next 10 days for each office, where appointments exist and how many appoinments exist.
 
