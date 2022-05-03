@@ -1,4 +1,12 @@
 # IsraelPassportBooking
+```diff
+- The API request that required to work on this implementation has been removed from the server, breaking this script.
+- https://central.qnomy.com/CentralAPI/GetServiceTypeList?organizationId=56
+- There are other developers providing the same functionality. This comment will be updated when I get to update my scripts .
+
+```
+
+
 A tool that allows users to choose a Ministry of the Interior Office to make a booking without a long waiting time
 
 
